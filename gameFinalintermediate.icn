@@ -1,0 +1,501 @@
+# Ryan Wendling
+# Final Project
+# 410 Meehan
+
+link array
+link strings
+import dict_stuff
+import scoring_stuff
+import timefuncs
+
+global validScore
+global sortedValidScore 
+global roundNumber
+
+# This is the same format as the gameFinal file, but with all the print statements left in, to better see what is happening/debug.
+# for example, I was using "./gameFinalintermediate ryan w opp b 15 10 10 8 100 50 5 " to run this program
+procedure main(args)
+
+    thisGameRecord := init_game(args)
+
+    
+    
+    # PREP SECTION HERE! INCLUDES LOADING BOARD, DICTIONARY, AND CSORTED DICTIONARY {
+    xDimension := thisGameRecord[6]
+    yDimension := thisGameRecord[7]
+    zDimension := thisGameRecord[8]
+    
+    tBoard := table(1)
+    dictionaryYO := table(0)
+    csortDict := table(1)
+    #word, score, location pairing, sorted by most recently added
+    validScore := []
+    #word, score, location pairing, sorted by highest points, to lowest
+    sortedValidScore := []
+    count := 1
+    roundNumber := 1
+    
+    # OPEN BOARD TEXT FILE AND READ INTO MULTI-DIMENSIONAL ARRAY
+    xspot := 1
+    yspot := 1
+    zspot := 1
+
+    every i := 1 to zDimension do { 
+	tBoard[i] := arrayy(xDimension,yDimension,0)
+    }
+    write("depth of board:  ",*tBoard)
+    intext := open("board")  | stop("Can't open board file ... bye")
+
+    # get first line
+    first_line:=read(intext)
+    # check to see that x,y,z from file match with the object's x,y,z
+    first_line ? { file_x := tab(upto(','))
+		   move(1)
+		   file_y := tab(upto(','))
+		   move(1)
+		   file_z := tab(0)
+	       }            
+    (xDimension=file_x & yDimension=file_y & zDimension=file_z) | stop("Got x=", file_x," y=", file_y," z=", file_z," from file ", fn," but aboard object thinks\n    x=", xDimension," y=", yDimension," z=", zDimension)
+    
+    # now get the contents of the board 
+    while line := read(intext) do {
+	yspot := 1	
+#	write("looking at line:  ",line)
+	
+	every (letter := !line) do {
+	    tBoard[zspot][xspot,yspot] := letter
+#	    write( tBoard[zspot][xspot,yspot] )
+	    yspot := yspot + 1
+	    count := count + 1
+	}
+	
+       	if (xspot < xDimension) then {
+	    xspot := xspot + 1
+	    	    
+        } else {
+	    xspot := 1
+#	    write("new plane")
+	    zspot := zspot + 1
+	}
+    }
+
+
+    write("test spot letter:  ", tBoard[1][1,3])
+
+
+    # teacher given dictionary read. key is word, length is value.
+    dictionaryYO := load_dict()
+   
+    # create csort version of table, quickest way to see if word from board is real or not
+    every aWord := key(dictionaryYO) do {
+	csortDict[csort(aWord)] := aWord
+    }
+    # END OF PREP SECTION!
+
+
+
+    # A TURN STARTS HERE!
+    t := time_reset()
+    write("Base time at entry was     ",t.sec," seconds and ",t.usec," microsecomds")
+
+    
+    # as of now my program will wait to get a move from the opponent
+    oppMoveRecord := get_move()
+
+    
+    # find all words from current form of board, should only need to do once, as it doesn't take long to finish with the size of the boards we've been testing
+    if (roundNumber = 1) then {
+	write("MAIN SEARCH")
+	boardSearch(csortDict, tBoard, xDimension, yDimension, zDimension)
+    }
+
+    write("size of validScore before removing opponent's word/overlapping words  ", *validScore)
+    # now that I have all valid words, sort them by best to worse.
+    sortedValidScore := sortf(validScore, 2)
+    
+
+    # if statement determines if I need to update my board and validmove table. Will only happen if I recieve a valid move from opponent.
+    if (oppMoveRecord[1] ~= 0) then {
+
+	oppMoveLocation := [oppMoveRecord[1], oppMoveRecord[2], oppMoveRecord[3], oppMoveRecord[4], oppMoveRecord[5], oppMoveRecord[6]]
+	# remove chosen word and all related words that may no longer be valid
+	removeValidRecord(sortedValidScore, oppMoveLocation)
+	removeValidRecord(validScore, oppMoveLocation)
+	
+	write("size of sortedValidScore after removal  ", *sortedValidScore)
+	write("size of validScore after removal  ", *validScore)
+
+	
+	#bubbleUp replaces spot on board, would ideally be from a word that was chosen by me or opponent
+	write("BUBBLING, new current board below")
+	bubbleUp(tBoard, oppMoveLocation, zDimension)
+	printBoard(tBoard, xDimension, yDimension, zDimension)
+
+	# searches affected area from previously chosen word, will fill up validwords list some. On later iterations, sortedValidRecord is refilled and resorted from this global validwords.
+	write("SEARCHING CHANGED AREA TO ADD NEWLY FOUND WORDS: ")
+	reSearch(csortDict, tBoard, oppMoveLocation, xDimension, yDimension, zDimension)
+	write("size of validScore after reSearch function  ", *validScore)
+    }
+
+    
+    # Will want to add the new words we found from "reSearch" and add them to our sortedValidScore
+    sortedValidScore := sortf(validScore, 2)
+
+    
+    write("DATA ABOUT TOP WORD FOUND:")
+    aWordLocation := sortedValidScore[*sortedValidScore][3]
+    write("location: ",aWordLocation[1],",", aWordLocation[2],",",aWordLocation[3], "  ", aWordLocation[4],",",aWordLocation[5],",",aWordLocation[6])
+    write(" word: ",sortedValidScore[*sortedValidScore][1])
+    write("------------------------------------")
+
+    if (*validScore = 0) then {
+	write("PASS")
+    }
+    
+    # pop off best word, then write to stdout
+    topWord := pull(sortedValidScore)
+    write("TOP word we pulled off:   ",topWord[1])
+    write("size of sortedValidScore before removal  ", *sortedValidScore)
+    write("size of validScore before removal  ", *validScore)
+    myMoveRecord := [aWordLocation[1],aWordLocation[2],aWordLocation[3],aWordLocation[4],aWordLocation[5],aWordLocation[6],topWord[1]]
+    
+    # remove chosen word and all related words that may no longer be valid
+    removeValidRecord(sortedValidScore, aWordLocation)
+    removeValidRecord(validScore, aWordLocation)
+    
+    write("size of sortedValidScore after removal  ", *sortedValidScore)
+    write("size of validScore after removal  ", *validScore)
+
+    
+    #bubbleUp replaces spot on board, would ideally be from a word that was chosen by me or opponent
+    write("BUBBLING, new current board below")
+    bubbleUp(tBoard, aWordLocation, zDimension)
+    printBoard(tBoard, xDimension, yDimension, zDimension)
+
+    # searches affected area from previously chosen word, will fill up validwords list some. On later iterations, sortedValidRecord is refilled and resorted from this global validwords.
+    write("SEARCHING CHANGED AREA TO ADD NEWLY FOUND WORDS: ")
+    reSearch(csortDict, tBoard, aWordLocation, xDimension, yDimension, zDimension)
+    write("size of validScore after reSearch function  ", *validScore)
+   
+    roundNumber := roundNumber + 1
+
+    # Might be redundant, kept extra sortfs in code to be safe and up to date.
+    sortedValidScore := sortf(validScore, 2)
+    
+    delta := time_passed()
+    write("Time passed since entry is ",delta.sec," seconds and ",delta.usec," microsecomds")
+    
+    # We preemptively remove the word I will use from the board and "reSearch" new words that are found on the top layer before submitting word.
+    make_move(myMoveRecord)
+    write("==============END ROUND==================")
+end
+
+
+
+# uses csorted word to see if it is in csorted dictionary.
+# If success, adds uncsorted word and point value into global validword record-list
+procedure csortReal(csortDict, word, startX, startY, startZ, endX, endY, endZ)
+
+    if member(csortDict, csort(word)) then {
+	realWord := csortDict[csort(word)]
+	points := score(realWord)	 
+	write("this word is real via csort:  ", realWord)
+	realWordRecord := validWord(realWord, points, [startX, startY, startZ, endX, endY, endZ])
+	put(validScore, realWordRecord)
+    }    
+	
+end
+
+
+
+#Makes multi-dimensional array to hold x and y of board
+procedure arrayy(i, j, x)
+    
+    L := list(i)
+    
+    every !L := list(j, x)
+    return L
+end
+
+
+# Searches through entirety of board surface, looking for immediately playable words.
+# Starts from top left corner going by-row down to bottom left corner
+# and checks all possible words along x,y and z axis, spot by spot. Takes in dimensions
+# of board, our dictionary, and the board/table itself.
+procedure boardSearch(oneDict, oneTBoard, xSize, ySize, zSize)
+
+    currentZ := 1
+    
+    every i := 1 to xSize do {
+	
+	every j := 1 to ySize do {
+
+	    if (i <= (xSize - 2)) then {
+		columnSearch(oneDict, oneTBoard, i, j, currentZ, xSize, ySize, zSize);
+	    }
+	    
+	    if (j <= (ySize - 2)) then {
+		rowSearch(oneDict, oneTBoard, i, j, currentZ, xSize, ySize, zSize);
+	    }
+
+	    if (currentZ <= (zSize - 2)) then {
+		depthSearch(oneDict, oneTBoard, i, j, currentZ, xSize, ySize, zSize);
+	    }
+	    #DONT NEED TO INCREMENT Z? CANT RELIABLY/ACCURATELY COMPUTE WORDS BELOW SURFACE
+
+	}
+    }
+end
+
+
+
+# Builds every possible y-axis string that relates to a single position 
+procedure columnSearch(oneDict, oneTBoardRow, currentX, currentY, currentZ, xSize, ySize, zSize)
+    
+    #concatenate with next two spots, so minimum length three
+    startX := currentX
+    potentialWord := oneTBoardRow[currentZ][currentX, currentY] ||  oneTBoardRow[currentZ][currentX+1, currentY] ||  oneTBoardRow[currentZ][currentX+2, currentY]
+    csortReal(oneDict, potentialWord, startX, currentY, currentZ, startX+2, currentY, currentZ)
+    currentX +:= 3
+    
+    every i := currentX to xSize do {
+	potentialWord := potentialWord || oneTBoardRow[currentZ][i, currentY]
+	csortReal(oneDict, potentialWord, startX, currentY, currentZ, i, currentY, currentZ)
+    }
+end
+
+
+
+# Builds every possible x-axis string that relates to a single position 
+procedure rowSearch(oneDict, oneTBoardRow, currentX, currentY, currentZ, xSize, ySize, zSize)
+    
+    #concatenate with next two spots, so minimum length three
+    startY := currentY
+    potentialWord := oneTBoardRow[currentZ][currentX, currentY] ||  oneTBoardRow[currentZ][currentX, currentY+1] ||  oneTBoardRow[currentZ][currentX, currentY+2]
+    csortReal(oneDict, potentialWord, currentX, startY, currentZ, currentX, startY+2, currentZ)
+    currentY +:= 3
+    
+    every i := currentY to ySize do {
+	potentialWord := potentialWord || oneTBoardRow[currentZ][currentX, i]
+	csortReal(oneDict, potentialWord, currentX, startY, currentZ, currentX, i, currentZ)
+    }
+end
+
+
+
+# Builds every possible z-axis string that relates to a single position 
+procedure depthSearch(oneDict, oneTBoardRow, currentX, currentY, currentZ, xSize, ySize, zSize)
+    
+    #concatenate with next two spots, so minimum length three
+    startZ := currentZ
+    potentialWord := oneTBoardRow[currentZ][currentX, currentY] ||  oneTBoardRow[currentZ+1][currentX, currentY] ||  oneTBoardRow[currentZ+2][currentX, currentY]
+    csortReal(oneDict, potentialWord, currentX, currentY, startZ, currentX, currentY, startZ+2)
+    currentZ +:= 3
+
+    every i := currentZ to zSize do {
+	potentialWord := potentialWord || oneTBoardRow[i][currentX, currentY]
+	csortReal(oneDict, potentialWord, currentX, currentY, startZ, currentX, currentY, i)
+    }
+end
+
+
+
+#Call this after every opponent move. Go through scoreList and remove words whos location
+# overlaps with the removed word.
+procedure removeValidRecord (scoreList, startEndList)
+    
+    write("going through validScore list/sortedValidScore list to remove overlapping words")
+
+    startx := startEndList[1]
+    starty := startEndList[2]
+    startz := startEndList[3]
+    endx := startEndList[4]
+    endy := startEndList[5]
+    endz := startEndList[6]
+
+    endOList := *scoreList
+
+    every i := 1 to endOList do {
+	
+	#if (i > *scoreList) then {
+	#    return
+	#}
+	thisList := scoreList[endOList - (i-1)][3]
+	
+	startxSL := thisList[1]
+	startySL := thisList[2]
+	startzSL := thisList[3]
+	endxSL := thisList[4]
+	endySL := thisList[5]
+	endzSL := thisList[6]
+	
+	deleted := 0
+
+	every j := startxSL to endxSL do {
+
+	    if ((startx <= j <= endx) & deleted = 0) then {
+		
+	       	every k := startySL to endySL do {
+		    
+		    if ((starty <= k <= endy) & deleted = 0) then {
+			write(scoreList[endOList - (i-1)][1])
+			delete(scoreList, endOList - (i-1))
+			deleted := 1
+		    }
+		}
+	    }
+	}
+    }
+end
+
+
+
+# Call this after every own move AND every opponent move.
+# Moves letters up from lower board tables. End of board  represented by " "
+procedure bubbleUp (oneTBoard, startEndList, zSize)
+
+    startx := startEndList[1]
+    starty := startEndList[2]
+    startz := startEndList[3]
+    endx := startEndList[4]
+    endy := startEndList[5]
+    endz := startEndList[6]
+    
+    if (endx - startx > 0) then {
+	
+	every i := 1 to zSize do {
+	    
+	    every j := startx to endx do {
+		
+		if (i + 1 <= zSize) then {
+		    oneTBoard[i][j, starty] := oneTBoard[i + 1][j, starty]
+		    
+		} else {
+		    oneTBoard[i][j, starty] := " "
+		}
+	    }
+	}
+    } else if (endy - starty > 0) then {
+	
+	every i := 1 to zSize do {
+	    
+	    every j := starty to endy do {
+		
+		if (i + 1 <= zSize) then {
+		    oneTBoard[i][startx, j] := oneTBoard[i + 1][startx, j]
+		    
+		} else {
+		    oneTBoard[i][startx, j] := " "
+		}
+	    }
+	}
+    } else {
+	
+       	every i := 1 to zSize do {
+	    
+	    if (i + ((endz - startz) + 1) <= zSize) then {
+		oneTBoard[i][startx, starty] := oneTBoard[i +  ((endz - startz) + 1)][startx, starty]
+		
+	    } else {
+		oneTBoard[i][startx, starty] := " "
+	    }
+      	}
+    }
+end
+
+
+
+# Look for new words in the disrupted location only, should call after opponent's move and my own.
+procedure reSearch (oneDict, oneTBoard, startEndList, xSize, ySize, zSize)
+
+    startx := startEndList[1]
+    starty := startEndList[2]
+    startz := startEndList[3]
+    endx := startEndList[4]
+    endy := startEndList[5]
+    endz := startEndList[6]
+
+    currentZ := startz
+    every i := startx to endx do {
+	
+	every j := starty to endy do {
+
+	    if (i <= (xSize - 2)) then {
+		columnSearch(oneDict, oneTBoard, i, j, currentZ, xSize, ySize, zSize);
+	    }
+	    
+	    if (j <= (ySize - 2)) then {
+		rowSearch(oneDict, oneTBoard, i, j, currentZ, xSize, ySize, zSize);
+	    }
+
+	    if (currentZ <= (zSize - 2)) then {
+		depthSearch(oneDict, oneTBoard, i, j, currentZ, xSize, ySize, zSize);
+	    }
+	}
+    }
+end
+
+
+
+# Simple function to print out current board in orderly fashion
+procedure printBoard (oneTBoard, xDim, yDim, zDim)
+
+    every plane := 1 to zDim do {
+	write("plane ", plane)
+	
+	every row := 1 to xDim do {
+	    
+	    every col := 1 to yDim do {
+		{ writes(oneTBoard[plane][row, col]) }    
+	    }
+	    write()
+        }
+    }
+end
+
+
+
+# stub code to return a pass move
+procedure get_move ()
+
+    if (roundNumber > 1) then {
+	oppMove := move_record(0,0,0,0,0,0,"PASS")
+    } else {
+	oppMove := move_record(1,7,1,1,9,1,"son")
+    }
+    return oppMove
+end
+
+
+
+
+# stub code to make a move
+procedure make_move (myMoveRecord)
+
+    write("my move is:  ", myMoveRecord[1],",",myMoveRecord[2],",",myMoveRecord[3]," ", myMoveRecord[4],",",myMoveRecord[5],",",myMoveRecord[6]," word:  ",myMoveRecord[7])
+end
+
+
+
+# User made function to take in the input parameters: my login id, my color, 
+# opponent's login id, opponent's color, time interval, board dimension x,
+# board dimension y, board dimension z, max rounds, max time, and prep time
+# from the command line and put it all into a record.
+procedure init_game (args)
+
+    length := *args
+    aGameRecord := game_record(args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9],args[10], args[11])
+    return aGameRecord
+end
+
+
+
+record validWord(name, points, location)
+
+
+
+record move_record (sx,sy,sz,ex,ey,ez,word)
+
+
+
+record game_record(login_id,me_bw,opp_login_id,opp_bw,move_interval,brdx,brdy,brdz,maxrounds,maxtime,preptime)
