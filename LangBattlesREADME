@@ -1,1 +1,17 @@
- Hello Professor! To aid you in putting my code together and finalizing the project, I've included multiple files. gameFinal is the program you want. It has all the correct logic built in a way that most closely resembles how you want our programs to run. All you should have to do is replace the init_game,make_move, and get_move functions, along with implementing the select/repeat logic so my program will keep performing turns until the game is over. I've included many comments to make the program clear. gameFinalintermediate is very similar to gameFinal, but with all the print statements left over for added clarity and debugging. test.icn doesn't take any command line arguments, but needs to be able to find "testboard" to run. test.icn essentially plays against itself, using the best move available until it can't anymore. It will run for a certain amount of turns that you can feel free to change. I currently left it at 6 turns total. The purpose of test.icn is to show how the logic of my functions work. I used it for most of my debugging. Every turn it will print out things like the current state of the board, the best word found, words that had to be deleted because they are no longer valid, new words that are found due to the bubble up function, etc. I'm pretty confident on the logic and soundness of my code. Let me know if you have any questions putting it all together! - Ryan Wendling 
+ Hello Professor! To aid you in putting my code together and finalizing the project, I've included multiple files.
+ gameFinal is the program you want. It has all the correct logic built in a way that most closely resembles how you want our 
+ programs to run. All you should have to do is replace the init_game,make_move, and get_move functions, along with implementing the
+ select/repeat logic so my program will keep performing turns until the game is over. I've included many comments to make the 
+ program clear. gameFinalintermediate is very similar to gameFinal, but with all the print statements left over for added clarity
+ and debugging. test.icn doesn't take any command line arguments, but needs to be able to find "testboard" to run. test.icn 
+ essentially plays against itself, using the best move available until it can't anymore. It will run for a certain amount of turns 
+ that you can feel free to change. I currently left it at 6 turns total. The purpose of test.icn is to show how the logic of my 
+ functions work. I used it for most of my debugging. Every turn it will print out things like the current state of the board, the 
+ best word found, words that had to be deleted because they are no longer valid, new words that are found due to the bubble up 
+ function, etc. I'm pretty confident on the logic and soundness of my code. Let me know if you have any questions putting it all 
+ together! - Ryan Wendling 
+ 
+ ./gameFinal ryan w opp b 15 10 10 8 100 50 5 
+ ./make_board2 -x50 -y50 -z30
+ unicon gameFinalintermediate.icn
+
