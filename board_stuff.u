@@ -1,0 +1,1577 @@
+version	U12.1.00
+uid	board_stuff.u1-1480222548-0
+record	board_stuff__aboard__state,11
+	0,__s
+	1,__m
+	2,x
+	3,y
+	4,z
+	5,board_file
+	6,B3
+	7,B2s
+	8,B3i
+	9,planesz
+	10,rowsz
+record	board_stuff__aboard__methods,6
+	0,print_B3
+	1,print_B2s
+	2,discard_B3
+	3,discard_B2s
+	4,load_board
+	5,initially
+impl	local
+global	11
+	0,000005,board_stuff__aboard_print_B3,1
+	1,000005,board_stuff__aboard_print_B2s,1
+	2,000005,board_stuff__aboard_discard_B3,1
+	3,000005,board_stuff__aboard_discard_B2s,1
+	4,000005,board_stuff__aboard_load_board,1
+	5,000005,board_stuff__aboard_initially,5
+	6,000011,board_stuff__aboard__state,11
+	7,000011,board_stuff__aboard__methods,6
+	8,000001,board_stuff__aboard__oprec,0
+	9,000005,board_stuff__aboard,4
+	10,000005,board_stuff__aboardinitialize,0
+
+proc board_stuff__aboard_print_B3
+	local	0,001000,self
+	local	1,000000,plane
+	local	2,000000,write
+	local	3,000000,row
+	local	4,000000,col
+	local	5,000000,writes
+	con	0,002000,1,1
+	con	1,010000,6,160,154,141,156,145,040
+	declend
+	filen	board_stuff.icn
+	line	14
+	colm	11
+	synt	any
+	mark	L1
+	line	15
+	colm	1
+	synt	if
+	mark0
+	pnull
+	pnull
+	var	0
+	line	15
+	colm	9
+	synt	any
+	field	B3
+	line	15
+	colm	4
+	synt	any
+	null
+	unmark
+	mark	L2
+	pnull
+	line	15
+	colm	18
+	synt	any
+	pret
+lab L2
+	synt	any
+	pfail
+	line	15
+	colm	1
+	synt	endif
+	unmark
+lab L1
+	mark	L3
+	line	16
+	colm	2
+	synt	every
+	mark0
+	pnull
+	var	1
+	pnull
+	int	0
+	pnull
+	var	0
+	line	16
+	colm	24
+	synt	any
+	field	z
+	push1
+	line	16
+	colm	17
+	synt	any
+	toby
+	line	16
+	colm	13
+	synt	any
+	asgn
+	pop
+	mark0
+	mark	L6
+	var	2
+	str	1
+	var	1
+	line	18
+	colm	18
+	synt	any
+	invoke	2
+	unmark
+lab L6
+	line	19
+	colm	13
+	synt	every
+	mark0
+	pnull
+	var	3
+	pnull
+	int	0
+	pnull
+	var	0
+	line	19
+	colm	33
+	synt	any
+	field	x
+	push1
+	line	19
+	colm	26
+	synt	any
+	toby
+	line	19
+	colm	22
+	synt	any
+	asgn
+	pop
+	mark0
+	mark	L9
+	line	21
+	colm	21
+	synt	every
+	mark0
+	pnull
+	var	4
+	pnull
+	int	0
+	pnull
+	var	0
+	line	21
+	colm	41
+	synt	any
+	field	y
+	push1
+	line	21
+	colm	34
+	synt	any
+	toby
+	line	21
+	colm	30
+	synt	any
+	asgn
+	pop
+	mark0
+	var	5
+	pnull
+	pnull
+	pnull
+	pnull
+	var	0
+	line	22
+	colm	38
+	synt	any
+	field	B3
+	var	3
+	line	22
+	colm	41
+	synt	any
+	subsc
+	var	4
+	line	22
+	colm	46
+	synt	any
+	subsc
+	var	1
+	line	22
+	colm	51
+	synt	any
+	subsc
+	line	22
+	colm	33
+	synt	any
+	invoke	1
+	unmark
+lab L10
+	efail
+lab L11
+	line	21
+	colm	21
+	synt	endevery
+	unmark
+lab L9
+	var	2
+	line	23
+	colm	26
+	synt	any
+	invoke	0
+	unmark
+lab L7
+	efail
+lab L8
+	line	19
+	colm	13
+	synt	endevery
+	unmark
+lab L4
+	efail
+lab L5
+	line	16
+	colm	2
+	synt	endevery
+	unmark
+lab L3
+	pnull
+	line	26
+	colm	1
+	synt	any
+	pfail
+	end
+proc board_stuff__aboard_print_B2s
+	local	0,001000,self
+	local	1,000000,plane
+	local	2,000000,write
+	local	3,000000,row
+	con	0,002000,1,1
+	con	1,010000,6,160,154,141,156,145,040
+	declend
+	line	29
+	colm	11
+	synt	any
+	mark	L1
+	line	30
+	colm	1
+	synt	if
+	mark0
+	pnull
+	pnull
+	var	0
+	line	30
+	colm	9
+	synt	any
+	field	B2s
+	line	30
+	colm	4
+	synt	any
+	null
+	unmark
+	mark	L2
+	pnull
+	line	30
+	colm	19
+	synt	any
+	pret
+lab L2
+	synt	any
+	pfail
+	line	30
+	colm	1
+	synt	endif
+	unmark
+lab L1
+	mark	L3
+	line	31
+	colm	2
+	synt	every
+	mark0
+	pnull
+	var	1
+	pnull
+	int	0
+	pnull
+	var	0
+	line	31
+	colm	24
+	synt	any
+	field	z
+	push1
+	line	31
+	colm	17
+	synt	any
+	toby
+	line	31
+	colm	13
+	synt	any
+	asgn
+	pop
+	mark0
+	mark	L6
+	var	2
+	str	1
+	var	1
+	line	33
+	colm	18
+	synt	any
+	invoke	2
+	unmark
+lab L6
+	line	34
+	colm	13
+	synt	every
+	mark0
+	pnull
+	var	3
+	pnull
+	int	0
+	pnull
+	var	0
+	line	34
+	colm	33
+	synt	any
+	field	x
+	push1
+	line	34
+	colm	26
+	synt	any
+	toby
+	line	34
+	colm	22
+	synt	any
+	asgn
+	pop
+	mark0
+	var	2
+	pnull
+	pnull
+	pnull
+	var	0
+	line	36
+	colm	31
+	synt	any
+	field	B2s
+	var	1
+	line	36
+	colm	35
+	synt	any
+	subsc
+	var	3
+	line	36
+	colm	42
+	synt	any
+	subsc
+	line	36
+	colm	26
+	synt	any
+	invoke	1
+	unmark
+lab L7
+	efail
+lab L8
+	line	34
+	colm	13
+	synt	endevery
+	unmark
+lab L4
+	efail
+lab L5
+	line	31
+	colm	2
+	synt	endevery
+	unmark
+lab L3
+	pnull
+	line	40
+	colm	1
+	synt	any
+	pfail
+	end
+proc board_stuff__aboard_discard_B3
+	local	0,001000,self
+	declend
+	line	43
+	colm	11
+	synt	any
+	mark	L1
+	pnull
+	pnull
+	var	0
+	line	44
+	colm	8
+	synt	any
+	field	B3
+	line	44
+	colm	13
+	synt	any
+	keywd	null
+	line	44
+	colm	11
+	synt	any
+	asgn
+	unmark
+lab L1
+	pnull
+	line	45
+	colm	1
+	synt	any
+	pfail
+	end
+proc board_stuff__aboard_discard_B2s
+	local	0,001000,self
+	declend
+	line	47
+	colm	11
+	synt	any
+	mark	L1
+	pnull
+	pnull
+	var	0
+	line	48
+	colm	8
+	synt	any
+	field	B2s
+	line	48
+	colm	14
+	synt	any
+	keywd	null
+	line	48
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L1
+	pnull
+	line	49
+	colm	1
+	synt	any
+	pfail
+	end
+proc board_stuff__aboard_load_board
+	local	0,001000,self
+	local	1,000000,f
+	local	2,000000,open
+	local	3,000000,stop
+	local	4,000000,first_line
+	local	5,000000,read
+	local	6,000000,file_x
+	local	7,000000,tab
+	local	8,000000,upto
+	local	9,000000,move
+	local	10,000000,file_y
+	local	11,000000,file_z
+	local	12,000000,fn
+	local	13,000000,plane
+	local	14,000000,row
+	local	15,000000,line
+	local	16,000000,col
+	local	17,000000,close
+	con	0,010000,1,162
+	con	1,010000,29,103,141,156,047,164,040,157,160,145,156,040,142,157,141,162,144,040,146,151,154,145,040,056,056,056,040,142,171,145
+	con	2,020000,1,054
+	con	3,002000,1,1
+	con	4,002000,1,0
+	con	5,010000,6,107,157,164,040,170,075
+	con	6,010000,3,040,171,075
+	con	7,010000,3,040,172,075
+	con	8,010000,11,040,146,162,157,155,040,146,151,154,145,040
+	con	9,010000,32,040,142,165,164,040,141,142,157,141,162,144,040,157,142,152,145,143,164,040,164,150,151,156,153,163,012,040,040,040,040,170,075
+	declend
+	line	51
+	colm	11
+	synt	any
+	mark	L1
+	pnull
+	var	1
+	mark	L2
+	var	2
+	pnull
+	var	0
+	line	52
+	colm	13
+	synt	any
+	field	board_file
+	str	0
+	line	52
+	colm	8
+	synt	any
+	invoke	2
+	line	52
+	colm	29
+	synt	any
+	esusp
+	goto	L3
+lab L2
+	var	3
+	str	1
+	line	52
+	colm	34
+	synt	any
+	invoke	1
+lab L3
+	line	52
+	colm	2
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L4
+	pnull
+	var	4
+	var	5
+	var	1
+	line	55
+	colm	17
+	synt	any
+	invoke	1
+	line	55
+	colm	11
+	synt	any
+	asgn
+	unmark
+lab L4
+	mark	L5
+	var	4
+	line	57
+	colm	12
+	synt	any
+	bscan
+	mark	L6
+	pnull
+	var	6
+	var	7
+	var	8
+	cset	2
+	line	57
+	colm	33
+	synt	any
+	invoke	1
+	line	57
+	colm	28
+	synt	any
+	invoke	1
+	line	57
+	colm	22
+	synt	any
+	asgn
+	unmark
+lab L6
+	mark	L7
+	var	9
+	int	3
+	line	58
+	colm	20
+	synt	any
+	invoke	1
+	unmark
+lab L7
+	mark	L8
+	pnull
+	var	10
+	var	7
+	var	8
+	cset	2
+	line	59
+	colm	33
+	synt	any
+	invoke	1
+	line	59
+	colm	28
+	synt	any
+	invoke	1
+	line	59
+	colm	22
+	synt	any
+	asgn
+	unmark
+lab L8
+	mark	L9
+	var	9
+	int	3
+	line	60
+	colm	20
+	synt	any
+	invoke	1
+	unmark
+lab L9
+	pnull
+	var	11
+	var	7
+	int	4
+	line	61
+	colm	28
+	synt	any
+	invoke	1
+	line	61
+	colm	22
+	synt	any
+	asgn
+	line	57
+	colm	12
+	synt	any
+	escan
+	unmark
+lab L5
+	mark	L10
+	mark	L11
+	pnull
+	pnull
+	var	0
+	line	63
+	colm	6
+	synt	any
+	field	x
+	var	6
+	line	63
+	colm	8
+	synt	any
+	numeq
+	pop
+	pnull
+	pnull
+	var	0
+	line	63
+	colm	20
+	synt	any
+	field	y
+	var	10
+	line	63
+	colm	22
+	synt	any
+	numeq
+	pop
+	pnull
+	pnull
+	var	0
+	line	63
+	colm	34
+	synt	any
+	field	z
+	var	11
+	line	63
+	colm	36
+	synt	any
+	numeq
+	line	63
+	colm	44
+	synt	any
+	esusp
+	goto	L12
+lab L11
+	var	3
+	str	5
+	var	6
+	str	6
+	var	10
+	str	7
+	var	11
+	str	8
+	var	12
+	str	9
+	pnull
+	var	0
+	line	63
+	colm	149
+	synt	any
+	field	x
+	str	6
+	pnull
+	var	0
+	line	63
+	colm	162
+	synt	any
+	field	y
+	str	7
+	pnull
+	var	0
+	line	63
+	colm	175
+	synt	any
+	field	z
+	line	63
+	colm	49
+	synt	any
+	invoke	14
+lab L12
+	unmark
+lab L10
+	mark	L13
+	line	65
+	colm	1
+	synt	every
+	mark0
+	pnull
+	var	13
+	pnull
+	int	3
+	pnull
+	var	0
+	line	65
+	colm	23
+	synt	any
+	field	z
+	push1
+	line	65
+	colm	16
+	synt	any
+	toby
+	line	65
+	colm	12
+	synt	any
+	asgn
+	pop
+	mark0
+	line	66
+	colm	8
+	synt	every
+	mark0
+	pnull
+	var	14
+	pnull
+	int	3
+	pnull
+	var	0
+	line	66
+	colm	28
+	synt	any
+	field	x
+	push1
+	line	66
+	colm	21
+	synt	any
+	toby
+	line	66
+	colm	17
+	synt	any
+	asgn
+	pop
+	mark0
+	mark	L18
+	pnull
+	var	15
+	var	5
+	var	1
+	line	68
+	colm	24
+	synt	any
+	invoke	1
+	line	68
+	colm	18
+	synt	any
+	asgn
+	unmark
+lab L18
+	mark	L19
+	pnull
+	pnull
+	pnull
+	pnull
+	var	0
+	line	70
+	colm	18
+	synt	any
+	field	B2s
+	var	13
+	line	70
+	colm	22
+	synt	any
+	subsc
+	var	14
+	line	70
+	colm	29
+	synt	any
+	subsc
+	var	15
+	line	70
+	colm	34
+	synt	any
+	asgn
+	unmark
+lab L19
+	line	73
+	colm	14
+	synt	every
+	mark0
+	pnull
+	var	16
+	pnull
+	int	3
+	pnull
+	var	0
+	line	73
+	colm	34
+	synt	any
+	field	y
+	push1
+	line	73
+	colm	27
+	synt	any
+	toby
+	line	73
+	colm	23
+	synt	any
+	asgn
+	pop
+	mark0
+	pnull
+	pnull
+	pnull
+	pnull
+	pnull
+	var	0
+	line	75
+	colm	24
+	synt	any
+	field	B3
+	var	14
+	line	75
+	colm	27
+	synt	any
+	subsc
+	var	16
+	line	75
+	colm	32
+	synt	any
+	subsc
+	var	13
+	line	75
+	colm	37
+	synt	any
+	subsc
+	pnull
+	var	15
+	var	16
+	line	75
+	colm	50
+	synt	any
+	subsc
+	line	75
+	colm	44
+	synt	any
+	asgn
+	unmark
+lab L20
+	efail
+lab L21
+	line	73
+	colm	14
+	synt	endevery
+	unmark
+lab L16
+	efail
+lab L17
+	line	66
+	colm	8
+	synt	endevery
+	unmark
+lab L14
+	efail
+lab L15
+	line	65
+	colm	1
+	synt	endevery
+	unmark
+lab L13
+	mark	L22
+	var	17
+	var	1
+	line	85
+	colm	6
+	synt	any
+	invoke	1
+	unmark
+lab L22
+	pnull
+	line	86
+	colm	1
+	synt	any
+	pfail
+	end
+proc board_stuff__aboard_initially
+	local	0,001000,self
+	local	1,001000,ix
+	local	2,001000,iy
+	local	3,001000,iz
+	local	4,001000,iboard_file
+	local	5,000000,stop
+	local	6,000000,table
+	local	7,000000,i
+	local	8,000000,j
+	local	9,000000,k
+	local	10,000000,repl
+	con	0,010000,75,131,157,165,040,155,165,163,164,040,147,151,166,145,040,164,150,145,040,142,157,141,162,144,040,163,151,172,145,040,170,040,171,040,172,040,167,150,145,156,040,143,157,156,163,164,162,165,143,164,151,156,147,040,141,040,142,157,141,162,144,040,157,142,152,145,143,164,040,056,056,056,040,142,171,145
+	con	1,010000,5,142,157,141,162,144
+	con	2,002000,1,1
+	con	3,010000,1,044
+	declend
+	line	89
+	colm	11
+	synt	any
+	mark	L1
+	mark	L2
+	pnull
+	var	1
+	line	92
+	colm	2
+	synt	any
+	null
+	line	92
+	colm	6
+	synt	any
+	esusp
+	goto	L3
+lab L2
+	mark	L4
+	pnull
+	var	2
+	line	92
+	colm	8
+	synt	any
+	null
+	line	92
+	colm	12
+	synt	any
+	esusp
+	goto	L5
+lab L4
+	pnull
+	var	3
+	line	92
+	colm	14
+	synt	any
+	null
+lab L5
+lab L3
+	pop
+	var	5
+	str	0
+	line	92
+	colm	26
+	synt	any
+	invoke	1
+	unmark
+lab L1
+	mark	L6
+	pnull
+	pnull
+	var	0
+	line	93
+	colm	5
+	synt	any
+	field	x
+	var	1
+	line	93
+	colm	7
+	synt	any
+	asgn
+	unmark
+lab L6
+	mark	L7
+	pnull
+	pnull
+	var	0
+	line	94
+	colm	5
+	synt	any
+	field	y
+	var	2
+	line	94
+	colm	7
+	synt	any
+	asgn
+	unmark
+lab L7
+	mark	L8
+	pnull
+	pnull
+	var	0
+	line	95
+	colm	5
+	synt	any
+	field	z
+	var	3
+	line	95
+	colm	7
+	synt	any
+	asgn
+	unmark
+lab L8
+	mark	L9
+	line	96
+	colm	2
+	synt	ifelse
+	mark	L10
+	pnull
+	var	4
+	line	96
+	colm	5
+	synt	any
+	null
+	unmark
+	pnull
+	pnull
+	var	0
+	line	96
+	colm	27
+	synt	any
+	field	board_file
+	str	1
+	line	96
+	colm	38
+	synt	any
+	asgn
+	goto	L11
+lab L10
+	pnull
+	pnull
+	var	0
+	line	96
+	colm	56
+	synt	any
+	field	board_file
+	var	4
+	line	96
+	colm	67
+	synt	any
+	asgn
+lab L11
+	line	96
+	colm	2
+	synt	endifelse
+	unmark
+lab L9
+	mark	L12
+	pnull
+	pnull
+	var	0
+	line	99
+	colm	5
+	synt	any
+	field	B3
+	var	6
+	line	99
+	colm	15
+	synt	any
+	invoke	0
+	line	99
+	colm	8
+	synt	any
+	asgn
+	unmark
+lab L12
+	mark	L13
+	line	100
+	colm	1
+	synt	every
+	mark0
+	pnull
+	var	7
+	pnull
+	int	2
+	pnull
+	var	0
+	line	100
+	colm	19
+	synt	any
+	field	x
+	push1
+	line	100
+	colm	12
+	synt	any
+	toby
+	line	100
+	colm	8
+	synt	any
+	asgn
+	pop
+	mark0
+	mark	L16
+	pnull
+	pnull
+	pnull
+	var	0
+	line	101
+	colm	11
+	synt	any
+	field	B3
+	var	7
+	line	101
+	colm	14
+	synt	any
+	subsc
+	var	6
+	line	101
+	colm	24
+	synt	any
+	invoke	0
+	line	101
+	colm	17
+	synt	any
+	asgn
+	unmark
+lab L16
+	line	102
+	colm	7
+	synt	every
+	mark0
+	pnull
+	var	8
+	pnull
+	int	2
+	pnull
+	var	0
+	line	102
+	colm	26
+	synt	any
+	field	y
+	push1
+	line	102
+	colm	19
+	synt	any
+	toby
+	line	102
+	colm	14
+	synt	any
+	asgn
+	pop
+	mark0
+	mark	L19
+	pnull
+	pnull
+	pnull
+	pnull
+	var	0
+	line	103
+	colm	15
+	synt	any
+	field	B3
+	var	7
+	line	103
+	colm	18
+	synt	any
+	subsc
+	var	8
+	line	103
+	colm	21
+	synt	any
+	subsc
+	var	6
+	line	103
+	colm	31
+	synt	any
+	invoke	0
+	line	103
+	colm	24
+	synt	any
+	asgn
+	unmark
+lab L19
+	line	104
+	colm	13
+	synt	every
+	mark0
+	pnull
+	var	9
+	pnull
+	int	2
+	pnull
+	var	0
+	line	104
+	colm	31
+	synt	any
+	field	z
+	push1
+	line	104
+	colm	24
+	synt	any
+	toby
+	line	104
+	colm	20
+	synt	any
+	asgn
+	pop
+	mark0
+	pnull
+	pnull
+	pnull
+	pnull
+	pnull
+	var	0
+	line	105
+	colm	20
+	synt	any
+	field	B3
+	var	7
+	line	105
+	colm	23
+	synt	any
+	subsc
+	var	8
+	line	105
+	colm	26
+	synt	any
+	subsc
+	var	9
+	line	105
+	colm	29
+	synt	any
+	subsc
+	str	3
+	line	105
+	colm	32
+	synt	any
+	asgn
+	unmark
+lab L20
+	efail
+lab L21
+	line	104
+	colm	13
+	synt	endevery
+	unmark
+lab L17
+	efail
+lab L18
+	line	102
+	colm	7
+	synt	endevery
+	unmark
+lab L14
+	efail
+lab L15
+	line	100
+	colm	1
+	synt	endevery
+	unmark
+lab L13
+	mark	L22
+	pnull
+	pnull
+	var	0
+	line	109
+	colm	5
+	synt	any
+	field	B2s
+	var	6
+	pnull
+	var	0
+	line	109
+	colm	21
+	synt	any
+	field	z
+	line	109
+	colm	16
+	synt	any
+	invoke	1
+	line	109
+	colm	9
+	synt	any
+	asgn
+	unmark
+lab L22
+	mark	L23
+	line	110
+	colm	1
+	synt	every
+	mark0
+	pnull
+	var	7
+	pnull
+	int	2
+	pnull
+	var	0
+	line	110
+	colm	19
+	synt	any
+	field	z
+	push1
+	line	110
+	colm	12
+	synt	any
+	toby
+	line	110
+	colm	8
+	synt	any
+	asgn
+	pop
+	mark0
+	mark	L26
+	pnull
+	pnull
+	pnull
+	var	0
+	line	111
+	colm	8
+	synt	any
+	field	B2s
+	var	7
+	line	111
+	colm	12
+	synt	any
+	subsc
+	var	6
+	line	111
+	colm	22
+	synt	any
+	invoke	0
+	line	111
+	colm	15
+	synt	any
+	asgn
+	unmark
+lab L26
+	line	112
+	colm	4
+	synt	every
+	mark0
+	pnull
+	var	8
+	pnull
+	int	2
+	pnull
+	var	0
+	line	112
+	colm	22
+	synt	any
+	field	x
+	push1
+	line	112
+	colm	15
+	synt	any
+	toby
+	line	112
+	colm	11
+	synt	any
+	asgn
+	pop
+	mark0
+	pnull
+	pnull
+	pnull
+	pnull
+	var	0
+	line	114
+	colm	12
+	synt	any
+	field	B2s
+	var	7
+	line	114
+	colm	16
+	synt	any
+	subsc
+	var	8
+	line	114
+	colm	19
+	synt	any
+	subsc
+	var	10
+	str	3
+	pnull
+	var	0
+	line	114
+	colm	37
+	synt	any
+	field	y
+	line	114
+	colm	28
+	synt	any
+	invoke	2
+	line	114
+	colm	22
+	synt	any
+	asgn
+	unmark
+lab L27
+	efail
+lab L28
+	line	112
+	colm	4
+	synt	endevery
+	unmark
+lab L24
+	efail
+lab L25
+	line	110
+	colm	1
+	synt	endevery
+	unmark
+lab L23
+	mark	L29
+	mark	L30
+	pnull
+	line	117
+	colm	7
+	synt	any
+	pret
+lab L30
+	synt	any
+	pfail
+	unmark
+lab L29
+	pnull
+	line	118
+	colm	1
+	synt	any
+	pfail
+	end
+proc board_stuff__aboard
+	local	0,001000,ix
+	local	1,001000,iy
+	local	2,001000,iz
+	local	3,001000,iboard_file
+	local	4,000020,self
+	local	5,000020,clone
+	local	6,000000,board_stuff__aboard__oprec
+	local	7,000000,board_stuff__aboardinitialize
+	local	8,000000,board_stuff__aboard__state
+	declend
+	filen	__faux.icn
+	line	5
+	colm	11
+	synt	any
+lab L1
+	init	L3
+	mark	L2
+	line	8
+	colm	3
+	synt	if
+	mark0
+	pnull
+	var	6
+	line	8
+	colm	6
+	synt	any
+	null
+	unmark
+	var	7
+	line	8
+	colm	68
+	synt	any
+	invoke	0
+	line	8
+	colm	3
+	synt	endif
+	unmark
+lab L2
+	einit	L1
+lab L3
+	mark	L4
+	pnull
+	var	4
+	var	8
+	line	10
+	colm	38
+	synt	any
+	keywd	null
+	var	6
+	line	10
+	colm	37
+	synt	any
+	invoke	2
+	line	10
+	colm	8
+	synt	any
+	asgn
+	unmark
+lab L4
+	mark	L5
+	pnull
+	pnull
+	var	4
+	line	11
+	colm	7
+	synt	any
+	field	__s
+	var	4
+	line	11
+	colm	12
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L6
+	mark	L7
+	pnull
+	pnull
+	var	4
+	line	12
+	colm	7
+	synt	any
+	field	__m
+	line	12
+	colm	11
+	synt	any
+	field	initially
+	var	4
+	var	0
+	var	1
+	var	2
+	var	3
+	line	12
+	colm	21
+	synt	any
+	invoke	5
+	line	12
+	colm	49
+	synt	any
+	esusp
+	goto	L8
+lab L7
+	line	12
+	colm	51
+	synt	any
+	pfail
+lab L8
+	unmark
+lab L6
+	mark	L9
+	mark	L10
+	var	4
+	line	13
+	colm	3
+	synt	any
+	pret
+lab L10
+	synt	any
+	pfail
+	unmark
+lab L9
+	pnull
+	line	14
+	colm	1
+	synt	any
+	pfail
+	end
+proc board_stuff__aboardinitialize
+	local	0,000000,board_stuff__aboard__oprec
+	local	1,000000,board_stuff__aboard__methods
+	local	2,000000,board_stuff__aboard_print_B3
+	local	3,000000,board_stuff__aboard_print_B2s
+	local	4,000000,board_stuff__aboard_discard_B3
+	local	5,000000,board_stuff__aboard_discard_B2s
+	local	6,000000,board_stuff__aboard_load_board
+	local	7,000000,board_stuff__aboard_initially
+	declend
+	line	16
+	colm	11
+	synt	any
+lab L1
+	init	L3
+	mark	L2
+	pnull
+	var	0
+	var	1
+	var	2
+	var	3
+	var	4
+	var	5
+	var	6
+	var	7
+	line	17
+	colm	69
+	synt	any
+	invoke	6
+	line	17
+	colm	38
+	synt	any
+	asgn
+	unmark
+lab L2
+	einit	L1
+lab L3
+	line	18
+	colm	1
+	synt	any
+	pfail
+	end

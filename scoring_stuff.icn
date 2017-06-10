@@ -1,0 +1,44 @@
+package scoring_stuff
+
+global letter_values
+
+# pass in a string and get back its point value
+procedure score(s)
+
+initial
+    {
+	letter_values:=table(1)
+	letter_values["a"]:=1
+	letter_values["b"]:=3
+	letter_values["c"]:=3
+	letter_values["d"]:=2
+	letter_values["e"]:=1
+	letter_values["f"]:=4
+	letter_values["g"]:=2
+	letter_values["h"]:=4
+	letter_values["i"]:=1
+	letter_values["j"]:=8
+	letter_values["k"]:=5
+	letter_values["l"]:=1
+	letter_values["m"]:=3
+	letter_values["n"]:=1
+	letter_values["o"]:=1
+	letter_values["p"]:=3
+	letter_values["q"]:=10
+	letter_values["r"]:=1
+	letter_values["s"]:=1
+	letter_values["t"]:=1
+	letter_values["u"]:=1
+	letter_values["v"]:=4
+	letter_values["w"]:=4
+	letter_values["x"]:=8
+	letter_values["y"]:=4
+	letter_values["z"]:=10
+    }
+total:=0
+length:=*s
+if length ~= 0 & (many(&lcase,s)=length+1) then every i:=1 to length do total+:=letter_values[s[i]]  
+return total
+end
+
+

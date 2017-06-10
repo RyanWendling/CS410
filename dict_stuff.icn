@@ -1,0 +1,32 @@
+package dict_stuff
+global dict, longest_word, number_dict_words, ldict, tldict
+
+procedure load_dict(fn:"dict")
+    dict:=table(0)
+    longest_word:=0
+    number_dict_words:=0
+    f:=open(fn,"r") | stop("Error can't open dictionary file ",fn)
+    while word:=read(f) do
+	{
+	  number_dict_words+:=1
+	  length:=*word
+	  longest_word:=longest_word<length
+	  if length > 2 then dict[word]:=length
+      }
+    return dict
+end
+
+procedure make_ldict()
+    if /longest_word then load_dict()   #looks like you forgot to call load_dict first I'll try to salvage the situation
+    return ldict:=sort(dict,2)
+end
+
+procedure make_tldict()
+    if /ldict then make_ldict()  #looks like you haven't called make_ldict first I'll try to salvage something
+    tldict:=table()
+    every i:= 3 to longest_word do tldict[i]:=[]  # we only deal with words of length three or greater
+    every L:=!ldict do put(tldict[L[2]],L[1])
+    # NOTE: the elements in the lists for each tldict[i] are not sorted alphabetically at this point
+    # If you want that just call sort for each of the lists in the table
+    return tldict
+end

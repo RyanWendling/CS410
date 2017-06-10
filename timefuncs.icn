@@ -1,0 +1,23 @@
+package timefuncs
+
+record time_rec(sec,usec)
+global interval_time
+global base_time
+
+procedure time_reset()
+    return base_time:=gettimeofday()
+end
+
+procedure time_passed()
+    current_time:=gettimeofday()
+    interval_time:=time_rec(0,0)
+    interval_time.sec := current_time.sec - base_time.sec
+    if current_time.usec < base_time.usec then
+	{ interval_time.sec-:=1
+	  interval_time.usec:=1000000-base_time.usec + current_time.usec
+	}
+    else
+	interval_time.usec:=current_time.usec - base_time.usec
+return interval_time
+end
+

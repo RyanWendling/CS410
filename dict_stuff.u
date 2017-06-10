@@ -1,0 +1,468 @@
+version	U12.1.00
+uid	dict_stuff.u1-1479852670-0
+impl	local
+global	8
+	0,000001,dict_stuff__dict,0
+	1,000001,dict_stuff__longest_word,0
+	2,000001,dict_stuff__number_dict_words,0
+	3,000001,dict_stuff__ldict,0
+	4,000001,dict_stuff__tldict,0
+	5,000005,dict_stuff__load_dict,1
+	6,000005,dict_stuff__make_ldict,0
+	7,000005,dict_stuff__make_tldict,0
+
+proc dict_stuff__load_dict
+	local	0,001000,fn
+	local	1,000000,dict_stuff__dict
+	local	2,000000,table
+	local	3,000000,dict_stuff__longest_word
+	local	4,000000,dict_stuff__number_dict_words
+	local	5,000000,f
+	local	6,000000,open
+	local	7,000000,stop
+	local	8,000000,word
+	local	9,000000,read
+	local	10,000000,length
+	con	0,010000,4,144,151,143,164
+	con	1,002000,1,0
+	con	2,010000,1,162
+	con	3,010000,33,105,162,162,157,162,040,143,141,156,047,164,040,157,160,145,156,040,144,151,143,164,151,157,156,141,162,171,040,146,151,154,145,040
+	con	4,002000,1,1
+	con	5,002000,1,2
+	declend
+	filen	dict_stuff.icn
+	line	4
+	colm	12
+	synt	any
+	mark	L1
+	pnull
+	pnull
+	var	0
+	line	5
+	colm	1
+	synt	any
+	null
+	str	0
+	line	5
+	colm	5
+	synt	any
+	asgn
+	unmark
+lab L1
+	mark	L2
+	pnull
+	var	1
+	var	2
+	int	1
+	line	7
+	colm	28
+	synt	any
+	invoke	1
+	line	7
+	colm	21
+	synt	any
+	asgn
+	unmark
+lab L2
+	mark	L3
+	pnull
+	var	3
+	int	1
+	line	8
+	colm	29
+	synt	any
+	asgn
+	unmark
+lab L3
+	mark	L4
+	pnull
+	var	4
+	int	1
+	line	9
+	colm	34
+	synt	any
+	asgn
+	unmark
+lab L4
+	mark	L5
+	pnull
+	var	5
+	mark	L6
+	var	6
+	var	0
+	str	2
+	line	10
+	colm	12
+	synt	any
+	invoke	2
+	line	10
+	colm	21
+	synt	any
+	esusp
+	goto	L7
+lab L6
+	var	7
+	str	3
+	var	0
+	line	10
+	colm	27
+	synt	any
+	invoke	2
+lab L7
+	line	10
+	colm	6
+	synt	any
+	asgn
+	unmark
+lab L5
+	mark	L8
+lab L9
+	line	11
+	colm	5
+	synt	while
+	mark0
+	pnull
+	var	8
+	var	9
+	var	5
+	line	11
+	colm	21
+	synt	any
+	invoke	1
+	line	11
+	colm	15
+	synt	any
+	asgn
+	unmark
+	mark	L9
+	mark	L12
+	pnull
+	var	4
+	dup
+	int	4
+	line	13
+	colm	40
+	synt	any
+	plus
+	asgn
+	unmark
+lab L12
+	mark	L13
+	pnull
+	var	10
+	pnull
+	var	8
+	line	14
+	colm	19
+	synt	any
+	size
+	line	14
+	colm	17
+	synt	any
+	asgn
+	unmark
+lab L13
+	mark	L14
+	pnull
+	var	3
+	pnull
+	var	3
+	var	10
+	line	15
+	colm	61
+	synt	any
+	numlt
+	line	15
+	colm	35
+	synt	any
+	asgn
+	unmark
+lab L14
+	line	16
+	colm	11
+	synt	if
+	mark0
+	pnull
+	var	10
+	int	5
+	line	16
+	colm	21
+	synt	any
+	numgt
+	unmark
+	pnull
+	pnull
+	var	1
+	var	8
+	line	16
+	colm	46
+	synt	any
+	subsc
+	var	10
+	line	16
+	colm	52
+	synt	any
+	asgn
+	line	16
+	colm	11
+	synt	endif
+lab L10
+	unmark
+	goto	L9
+lab L11
+	line	11
+	colm	5
+	synt	endwhile
+	unmark
+lab L8
+	mark	L15
+	mark	L16
+	var	1
+	line	18
+	colm	5
+	synt	any
+	pret
+lab L16
+	synt	any
+	pfail
+	unmark
+lab L15
+	pnull
+	line	19
+	colm	2
+	synt	any
+	pfail
+	end
+proc dict_stuff__make_ldict
+	local	0,000000,dict_stuff__longest_word
+	local	1,000000,dict_stuff__load_dict
+	local	2,000000,dict_stuff__ldict
+	local	3,000000,sort
+	local	4,000000,dict_stuff__dict
+	con	0,002000,1,2
+	declend
+	line	21
+	colm	12
+	synt	any
+	mark	L1
+	line	22
+	colm	5
+	synt	if
+	mark0
+	pnull
+	var	0
+	line	22
+	colm	8
+	synt	any
+	null
+	unmark
+	var	1
+	line	22
+	colm	60
+	synt	any
+	invoke	0
+	line	22
+	colm	5
+	synt	endif
+	unmark
+lab L1
+	mark	L2
+	mark	L3
+	pnull
+	var	2
+	var	3
+	var	4
+	int	0
+	line	23
+	colm	35
+	synt	any
+	invoke	2
+	line	23
+	colm	29
+	synt	any
+	asgn
+	line	23
+	colm	5
+	synt	any
+	pret
+lab L3
+	synt	any
+	pfail
+	unmark
+lab L2
+	pnull
+	line	24
+	colm	1
+	synt	any
+	pfail
+	end
+proc dict_stuff__make_tldict
+	local	0,000000,dict_stuff__ldict
+	local	1,000000,dict_stuff__make_ldict
+	local	2,000000,dict_stuff__tldict
+	local	3,000000,table
+	local	4,000000,i
+	local	5,000000,dict_stuff__longest_word
+	local	6,000000,L
+	local	7,000000,put
+	con	0,002000,1,3
+	con	1,002000,1,2
+	con	2,002000,1,1
+	declend
+	line	26
+	colm	12
+	synt	any
+	mark	L1
+	line	27
+	colm	5
+	synt	if
+	mark0
+	pnull
+	var	0
+	line	27
+	colm	8
+	synt	any
+	null
+	unmark
+	var	1
+	line	27
+	colm	54
+	synt	any
+	invoke	0
+	line	27
+	colm	5
+	synt	endif
+	unmark
+lab L1
+	mark	L2
+	pnull
+	var	2
+	var	3
+	line	28
+	colm	30
+	synt	any
+	invoke	0
+	line	28
+	colm	23
+	synt	any
+	asgn
+	unmark
+lab L2
+	mark	L3
+	line	29
+	colm	5
+	synt	every
+	mark0
+	pnull
+	var	4
+	pnull
+	int	0
+	var	5
+	push1
+	line	29
+	colm	17
+	synt	any
+	toby
+	line	29
+	colm	12
+	synt	any
+	asgn
+	pop
+	mark0
+	pnull
+	pnull
+	var	2
+	var	4
+	line	29
+	colm	66
+	synt	any
+	subsc
+	pnull
+	line	29
+	colm	71
+	synt	any
+	llist	0
+	line	29
+	colm	69
+	synt	any
+	asgn
+	unmark
+lab L4
+	efail
+lab L5
+	line	29
+	colm	5
+	synt	endevery
+	unmark
+lab L3
+	mark	L6
+	line	30
+	colm	5
+	synt	every
+	mark0
+	pnull
+	var	6
+	pnull
+	var	0
+	line	30
+	colm	14
+	synt	any
+	bang
+	line	30
+	colm	12
+	synt	any
+	asgn
+	pop
+	mark0
+	var	7
+	pnull
+	var	2
+	pnull
+	var	6
+	int	1
+	line	30
+	colm	60
+	synt	any
+	subsc
+	line	30
+	colm	58
+	synt	any
+	subsc
+	pnull
+	var	6
+	int	2
+	line	30
+	colm	66
+	synt	any
+	subsc
+	line	30
+	colm	39
+	synt	any
+	invoke	2
+	unmark
+lab L7
+	efail
+lab L8
+	line	30
+	colm	5
+	synt	endevery
+	unmark
+lab L6
+	mark	L9
+	mark	L10
+	var	2
+	line	33
+	colm	5
+	synt	any
+	pret
+lab L10
+	synt	any
+	pfail
+	unmark
+lab L9
+	pnull
+	line	34
+	colm	2
+	synt	any
+	pfail
+	end

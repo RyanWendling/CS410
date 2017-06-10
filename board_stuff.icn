@@ -1,0 +1,117 @@
+package board_stuff
+
+# Note that aboard is a class inside the package board_stuff
+# Although I have no idea why you would want to, this means you can create however many board objects you desire
+
+class aboard(x,y,z,board_file,B3,B2s,B3i,planesz,rowsz)
+# B3 is a table of table of table of single character strings. you use three subscripts B[x][y][z] to access a board cell
+# B2s is a table of table of strigs. Each string is an entire row. Note you access it by plane then row B2s[plane][row]
+# Both are built by default when you create a board object. You can throw away the one you don't want and thus reclaim that
+# storage by calling the corresponding discard_X method
+# Each board for also has a corresponding print_X method to print out the contents of the board for debugging purposes
+
+
+method print_B3()
+if /B3 then return # if they don't have this flavor of board don't try to print it
+every plane:=1 to z do
+	{
+	    write("plane ",plane)
+	    every row:=1 to x do
+		{
+		    every col:=1 to y do
+			{ writes(B3[row][col][plane]) }
+		    write()
+		}
+	}
+
+end
+
+method print_B2s()
+if /B2s then return # if they don't have this flavor of board don't try to print it
+ every plane:=1 to z do
+	{
+	    write("plane ",plane)
+	    every row:=1 to x do
+		{
+		    write(B2s[plane][row]) 
+
+        	}
+        }
+end
+
+
+method discard_B3()
+   B3:=&null
+end
+
+method discard_B2s()
+   B2s:=&null
+end
+
+method load_board()
+f:=open(board_file,"r") | stop("Can't open board file ... bye")
+
+# get first line
+first_line:=read(f)
+# check to see that x,y,z from file match with the object's x,y,z
+first_line ? { file_x:= tab(upto(','))
+               move(1)
+               file_y:= tab(upto(','))
+               move(1)
+               file_z:= tab(0)
+             }            
+(x=file_x & y=file_y & z=file_z) | stop("Got x=",file_x," y=",file_y," z=",file_z," from file ",fn," but aboard object thinks\n    x=",x," y=",y," z=",z)
+# now get the contents of the board 
+every plane:=1 to z do
+    {  every row:=1 to x do
+          {
+             line:=read(f)
+             # each entry  in the B2s is a string that contains one row of charcters
+             B2s[plane][row]:=line
+             # don't know which way you want the board so I go ahead and create another version of it
+             # stored as a 3 dimentional collection of one character strings in traditional x,y,z order
+             every col:=1 to y do
+                {
+                   B3[row][col][plane]:=line[col]
+                   # B3 makes everything look like subscripts to a 3 dimensional array
+                   # it is actually a table of tables of tables
+                   # Could just as easily have used lists of lists of lists
+                   
+# debug                  write("B3[row][col][plane]=",B3[row][col][plane])
+                  
+                }
+           }
+    }
+close(f)
+end
+
+
+initially (ix,iy,iz,iboard_file)
+# &trace:=-1
+# no defaults here if they don't give us x y and z go home
+(/ix | /iy | /iz ) & stop("You must give the board size x y z when constructing a board object ... bye")
+x:=ix
+y:=iy
+z:=iz
+if /iboard_file then board_file:="board" else board_file:=iboard_file
+# we can go ahead fill the tables with $'s just to make them grow to the final size  
+# and for debug purpises You can get rid of it if yo wish
+B3:=table()
+every i:=1 to x do
+    { B3[i]:=table()
+      every j:= 1 to y do
+        { B3[i][j]:=table()
+            every k:=1 to z do {
+               B3[i][j][k]:="$"
+              }
+         }
+    }
+B2s:=table(z)
+every i:=1 to z do {
+   B2s[i]:=table()
+   every j:=1 to x do
+    {
+       B2s[i][j]:=repl("$",y)
+    }
+}
+end 
